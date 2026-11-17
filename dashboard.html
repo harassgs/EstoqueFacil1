@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Painel | Estoque Fácil{% endblock %}
+{% block content %}
+<div class="page-head"><div><span class="eyebrow">VISÃO GERAL</span><h1>Painel de estoque</h1><p class="muted">Olá, {{ session.username }}. Confira a situação do seu estoque.</p></div><a class="btn primary" href="{{ url_for('movements') }}">+ Nova movimentação</a></div>
+<div class="stats">
+  <div class="stat"><span>Produtos cadastrados</span><strong>{{ stats.products or 0 }}</strong></div>
+  <div class="stat"><span>Unidades em estoque</span><strong>{{ stats.units or 0 }}</strong></div>
+  <div class="stat warning"><span>Estoque baixo (até 5)</span><strong>{{ stats.low or 0 }}</strong></div>
+</div>
+<section class="panel"><div class="panel-head"><h2>Movimentações recentes</h2><a href="{{ url_for('movements') }}">Ver todas →</a></div>
+{% if movements %}<div class="table-wrap"><table><thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Usuário</th></tr></thead><tbody>
+{% for m in movements %}<tr><td>{{ m.created_at }}</td><td>{{ m.product_name }}</td><td><span class="tag {{ m.kind }}">{{ m.kind }}</span></td><td>{{ m.quantity }}</td><td>{{ m.username or '—' }}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="empty">Nenhuma movimentação registrada ainda.</p>{% endif %}</section>
+{% endblock %}

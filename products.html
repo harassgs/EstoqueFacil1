@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Produtos | Estoque Fácil{% endblock %}
+{% block content %}
+<div class="page-head"><div><span class="eyebrow">CATÁLOGO</span><h1>Produtos</h1><p class="muted">Cadastre e acompanhe os itens do estoque.</p></div></div>
+<section class="panel"><h2>Novo produto</h2><form method="post" class="form-grid">
+<label>Nome do produto<input name="name" required placeholder="Ex.: Teclado"></label>
+<label>Código / SKU<input name="code" required placeholder="Ex.: TEC-001"></label>
+<label>Categoria<input name="category" placeholder="Ex.: Informática"></label>
+<div class="form-action"><button class="btn primary">Cadastrar produto</button></div>
+</form></section>
+<section class="panel"><h2>Produtos cadastrados</h2>
+{% if products %}<div class="table-wrap"><table><thead><tr><th>Produto</th><th>Código</th><th>Categoria</th><th>Quantidade</th><th>Status</th></tr></thead><tbody>
+{% for p in products %}<tr><td><b>{{ p.name }}</b></td><td>{{ p.code }}</td><td>{{ p.category or '—' }}</td><td>{{ p.quantity }}</td><td>{% if p.quantity <= 5 %}<span class="tag saida">Estoque baixo</span>{% else %}<span class="tag entrada">Disponível</span>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="empty">Cadastre o primeiro produto usando o formulário acima.</p>{% endif %}
+</section>{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Entrar | Estoque Fácil{% endblock %}
+{% block content %}
+<section class="login-wrap"><div class="login-card">
+  <div class="logo">📦</div><h1>Estoque Fácil</h1><p class="muted">Entre para gerenciar seu estoque</p>
+  <form method="post">
+    <label>Usuário<input name="username" required autofocus placeholder="Seu usuário"></label>
+    <label>Senha<input type="password" name="password" required placeholder="Sua senha"></label>
+    <button class="btn primary full">Entrar</button>
+  </form>
+  <p class="hint">Acesso inicial: <b>admin</b> / <b>admin123</b></p>
+</div></section>
+{% endblock %}

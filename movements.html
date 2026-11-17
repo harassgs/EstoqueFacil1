@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Movimentações | Estoque Fácil{% endblock %}
+{% block content %}
+<div class="page-head"><div><span class="eyebrow">ENTRADAS E SAÍDAS</span><h1>Movimentações</h1><p class="muted">Registre reposições e retiradas do estoque.</p></div></div>
+<section class="panel"><h2>Registrar movimentação</h2>
+{% if products %}<form method="post" class="form-grid">
+<label>Produto<select name="product_id" required>{% for p in products %}<option value="{{ p.id }}">{{ p.name }} — {{ p.code }} (saldo: {{ p.quantity }})</option>{% endfor %}</select></label>
+<label>Tipo<select name="kind"><option value="entrada">Entrada</option><option value="saida">Saída</option></select></label>
+<label>Quantidade<input type="number" name="quantity" min="1" required></label>
+<label>Observação<input name="note" placeholder="Ex.: compra, venda, ajuste..."></label>
+<div class="form-action"><button class="btn primary">Salvar movimentação</button></div>
+</form>{% else %}<p class="empty">Cadastre um produto antes de registrar movimentações.</p>{% endif %}
+</section>
+<section class="panel"><h2>Histórico</h2>
+{% if movements %}<div class="table-wrap"><table><thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Observação</th><th>Usuário</th></tr></thead><tbody>
+{% for m in movements %}<tr><td>{{ m.created_at }}</td><td>{{ m.product_name }}</td><td><span class="tag {{ m.kind }}">{{ m.kind }}</span></td><td>{{ m.quantity }}</td><td>{{ m.note or '—' }}</td><td>{{ m.username or '—' }}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="empty">O histórico aparecerá aqui após a primeira movimentação.</p>{% endif %}
+</section>{% endblock %}
